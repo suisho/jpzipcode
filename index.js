@@ -6,9 +6,9 @@ var yaml = require("js-yaml")
 var request = require("request")
 var unzip = require("unzip")
 var extend = require("extend")
-var iconv = new Iconv('SHIFT_JIS', 'UTF-8//TRANSLIT//IGNORE');
- 
+var iconv = new Iconv('SHIFT_JIS', 'UTF-8//TRANSLIT//IGNORE'); 
 var parser = require("./lib/parser") 
+
 // params
 var defaults = {
   tmpDir : "tmp",
