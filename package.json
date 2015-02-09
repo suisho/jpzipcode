@@ -1,0 +1,16 @@
+{
+  "name": "jpzipcode",
+  "version": "1.0.0",
+  "description": "Download and parse japanese zipcode",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "keywords": [
+    "zipcode",
+    "japan",
+    "japanese"
+  ],
+  "author": "suisho",
+  "license": "ISC"
+}
