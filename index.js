@@ -2,13 +2,12 @@ var fs = require('fs.extra')
 var path =require('path')
 var csv = require('fast-csv')
 var Iconv = require('iconv').Iconv
-var yaml = require("js-yaml")
+var iconv = new Iconv('SHIFT_JIS', 'UTF-8//TRANSLIT//IGNORE'); 
 var request = require("request")
 var unzip = require("unzip")
 var extend = require("extend")
-var iconv = new Iconv('SHIFT_JIS', 'UTF-8//TRANSLIT//IGNORE'); 
 var parser = require("./lib/parser") 
-
+var output = require("./lib/output")
 // params
 var defaults = {
   tmpDir : "tmp",
@@ -55,17 +54,6 @@ var extractMap = function(stream, cb){
   stream.pipe(iconv).pipe(csvStream)
 }
  
-var outputChunk = function(dir, name, dataObj, format){
-  switch(format){
-    case "json":
-      fs.writeFile(path.join(dir, name + ".json"), JSON.stringify(dataObj))
-      break
-    case "yml":
-      fs.writeFile(path.join(dir, name + ".yml"), yaml.dump(dataObj))
-      break
-  }
-}
- 
 module.exports = jpZipcode = function(options){
   var opts = extend(options, defaults)
   cleanup(opts.outputDir)
@@ -79,7 +67,7 @@ module.exports = jpZipcode = function(options){
       }
       Object.keys(data).forEach(function(idx){
         var zips = data[idx]
-        outputChunk(opts.outputDir, idx, zips, opts.format)
+        output.chunk(opts.outputDir, idx, zips, opts.format)
       })
     })
   }, opts.japanPostUrl, opts.csvFile, opts.tmpDir)
